@@ -9,7 +9,7 @@ output: html_document
 
 ### Introduction: Presidential Speeches are telling us a lot about American people's concerns. 
 
-![Concerns of the American people are evolving](https://media.salon.com/2015/11/clinton_bush_obama_trump.jpg)
+![Concerns of the American people are evolving](https://www.google.com/imgres?imgurl=http%3A%2F%2Fcontent.gallup.com%2Forigin%2Fgallupinc%2FGallupSpaces%2FProduction%2FCms%2FPOLL%2F1wfb7g5be0mb4bggw-bwvg.png&imgrefurl=http%3A%2F%2Fwww.gallup.com%2Fpoll%2F187655%2Famericans-name-terrorism-no-problem.aspx&docid=D72C0ibU4KBKGM&tbnid=Xx3lBRZKmZA0wM%3A&vet=10ahUKEwie4bfGp7TWAhWJy4MKHe0rB804ZBAzCAYoBDAE..i&w=300&h=175&bih=1334&biw=2560&q=american%20people%20concerns&ved=0ahUKEwie4bfGp7TWAhWJy4MKHe0rB804ZBAzCAYoBDAE&iact=mrc&uact=8)
 
 Inaugural speech is the first official speech of any president of United States. The President elected is supposed to address American people concerns and offer a plan to answer these concerns during his mandate. As a result, the Presidential inaugural speeches tell a lot about those concerns and their evolution. In this work, we will leverage the presidential inaugural speeches to analyse the evolution of the concerns of American people. 
 
@@ -178,7 +178,7 @@ On these words clouds we can see that every and each president has his own style
 "%ni%" <- Negate("%in%")
 
 tdm.obama<-tdm.obama[order(tdm.obama$count,decreasing = TRUE),]
-tdm.obama = subset(tdm.obama,term %ni% c(""","requires","complete","compel","today"))
+tdm.obama = subset(tdm.obama,term %ni% c("requires","complete","compel","today"))
 tdm.obama = tdm.obama[-1,]
 
 tdm.bush<-tdm.bush[order(tdm.bush$count,decreasing = TRUE),]
@@ -339,14 +339,37 @@ text(Speech_Score_subset$average_sentiment, Speech_Score_subset$average_strength
 
 ```
 
-In this part, I use the 'lexicon' package to assign to each token a sentiment and a strength score that can be in the set (0,1,-1). We then multiply this by the occurence of the world in the speech and average it using the number of words prononced in the speech. This method gives us a score for each speech in terms of its average strength and the average sentiments the speech is using. 
+In this part, I use the hash_sentiment_nrc and the hash_strength datasets to assign to each token a sentiment and a strength score that can be in the set (0,1,-1). We then multiply this by the occurence of the world in the speech and average it using the number of words prononced in the speech. This method gives us a score for each speech in terms of its average strength and the average sentiments the speech is using. 
+
+We can see that the presidents have very different style and their speech convey very different levels of strength and sentiment. But we also notice that depending on the speech, the message conveyed can be very different for the same president. 
+
+We can note here that - according to this simple analysis- Trump style seems to be the most effective as it has a both high strength and high sentiments in his speech. On the contraty, Obama migth use a much more elaborated and metaphorical vocabulary that makes him have a somewhat low score both in terms of strength and sentiment. We note that there is no clear patterns of appartenance to one political movement in this data. Let's use the whole data set and compare the score of the recent presidents against all the previous US presidents.
+
+## step 8 - Comparing recent President speeches to past ones:
+
+```{r}
 
 
+tdm.tidy.all<-tdm.tidy.all[,c('document', 'average_sentiment', 'average_strength')]  
+
+plot(tdm.tidy.all$average_sentiment, tdm.tidy.all$average_strength, main= 'Sentiment and Stength Score for recent President Speeches', xlab= 'Sentiment in Speech', ylab= 'Strength of Speech', col= "blue", pch = 19, cex = 1, lty = "solid", lwd = 2)
+text(tdm.tidy.all$average_sentiment, tdm.tidy.all$average_strength, labels= tdm.tidy.all$document, cex= 0.7, pos=3)
+
+points(subset(tdm.tidy.all,document %in%  c('inaugWilliamJClinton-1.txt','inaugWilliamJClinton-2.txt', 'inaugGeorgeWBush-1.txt','inaugGeorgeWBush-2.txt', 'inaugBarackObama-1.txt', 'inaugBarackObama-1.txt','inaugDonaldJTrump-1.txt'))$average_sentiment, subset(tdm.tidy.all,document %in%  c('inaugWilliamJClinton-1.txt','inaugWilliamJClinton-2.txt', 'inaugGeorgeWBush-1.txt','inaugGeorgeWBush-2.txt', 'inaugBarackObama-1.txt', 'inaugBarackObama-1.txt','inaugDonaldJTrump-1.txt'))$average_strength, pch = 16, col = 'red', cex = 2)
+```
 
 
-### Conclusion
+## Conclusion
 
+This analysis allowed us to roughly understand the evolution of the worries and concerns of American people. 
+We observe that a new presidency is a moment of transition where one of the main concern being addressed is the desire of change. This desire of change can follow a presidency where a large part of the US population disagreed with the administration choices and decision, in that case we observe a lot of negative words. But these inaugural speeches also lay out a new future and bring a lot of hope. 
+
+But this analysis - and this could be detailed- also allowed us to learn about the evolution of the US society concerns. for instance, the concern of terrorism appears after the terrible events of 9/11, adressing climate change and equal wages for women also appeared quite late in the presidential speeches, showing the evolving importance of these issues. 
+
+Finally, a sentiment analysis can help us understand the strentgh and the sentiments that conveys a speech. Donald Trump was elected as a movement to radically change politics and the way the US society is working. As a result, his speech conveys a lot of hope (positive sentiments) and also has a lot of strength.
 
 
 Sources:
+http://www.statmethods.net/advstats/cluster.html
+https://cran.r-project.org/web/packages/topicmodels/vignettes/topicmodels.pdf
 
