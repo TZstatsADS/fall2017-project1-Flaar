@@ -9,7 +9,7 @@ output: html_document
 
 ### Introduction: Presidential Speeches are telling us a lot about American people's concerns. 
 
-![Concerns of the American people are evolving](https://www.google.com/imgres?imgurl=http%3A%2F%2Fcontent.gallup.com%2Forigin%2Fgallupinc%2FGallupSpaces%2FProduction%2FCms%2FPOLL%2F1wfb7g5be0mb4bggw-bwvg.png&imgrefurl=http%3A%2F%2Fwww.gallup.com%2Fpoll%2F187655%2Famericans-name-terrorism-no-problem.aspx&docid=D72C0ibU4KBKGM&tbnid=Xx3lBRZKmZA0wM%3A&vet=10ahUKEwie4bfGp7TWAhWJy4MKHe0rB804ZBAzCAYoBDAE..i&w=300&h=175&bih=1334&biw=2560&q=american%20people%20concerns&ved=0ahUKEwie4bfGp7TWAhWJy4MKHe0rB804ZBAzCAYoBDAE&iact=mrc&uact=8)
+![Concerns of the American people are evolving](https://media.salon.com/2015/11/clinton_bush_obama_trump.jpg)
 
 Inaugural speech is the first official speech of any president of United States. The President elected is supposed to address American people concerns and offer a plan to answer these concerns during his mandate. As a result, the Presidential inaugural speeches tell a lot about those concerns and their evolution. In this work, we will leverage the presidential inaugural speeches to analyse the evolution of the concerns of American people. 
 
