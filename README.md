@@ -15,7 +15,11 @@ Term: Fall 2017
 
 Inaugural speech is the first official speech of any president of United States. The President elected is supposed to address American people concerns and offer a plan to answer these concerns during his mandate. As a result, the Presidential inaugural speeches tell a lot about those concerns and their evolution. In this work, we will leverage the presidential inaugural speeches to analyse the evolution of the concerns of American people. 
 In order to have a more interesting analysis, we will focus on recent elections only: starting from Bill Clinton in 1993 to Donlad Trump in 2017, which gives approximately 25 years of recent American History.
-We will first analyse the chronological evolution of the word clouds, after correcting for the presidents verbal tics and style. We will then conduct a sentiment analysis of these recent speeches and analyse the emotion they convey
+We will first analyse the chronological evolution of the word clouds, after correcting for the presidents verbal tics and style. We will then conduct a sentiment analysis of these recent speeches and analyse the emotion they convey.
+
++ Reproductibility:
+
+Download the whole git folder, execute the RMD file after changing the directory: step 0 (i)
 
 
 
