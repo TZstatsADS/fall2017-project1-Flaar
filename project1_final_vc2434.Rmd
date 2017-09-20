@@ -357,7 +357,7 @@ text(tdm.tidy.all$average_sentiment, tdm.tidy.all$average_strength, labels= tdm.
 
 points(subset(tdm.tidy.all,document %in%  c('inaugWilliamJClinton-1.txt','inaugWilliamJClinton-2.txt', 'inaugGeorgeWBush-1.txt','inaugGeorgeWBush-2.txt', 'inaugBarackObama-1.txt', 'inaugBarackObama-1.txt','inaugDonaldJTrump-1.txt'))$average_sentiment, subset(tdm.tidy.all,document %in%  c('inaugWilliamJClinton-1.txt','inaugWilliamJClinton-2.txt', 'inaugGeorgeWBush-1.txt','inaugGeorgeWBush-2.txt', 'inaugBarackObama-1.txt', 'inaugBarackObama-1.txt','inaugDonaldJTrump-1.txt'))$average_strength, pch = 16, col = 'red', cex = 2)
 ```
-
+We can see that Trump is finally not an outlier, past Presidents have used much more strength and sentiments in their inaugural speeches. This data is very rich and we could conduct a lot of different analysis on it: clustering analysis, correlation with political party and so forth. I unfortunately didn't get the time for all these.
 
 ## Conclusion
 
