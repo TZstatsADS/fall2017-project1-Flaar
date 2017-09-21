@@ -1,11 +1,14 @@
 ---
 title: "Understanding the evolution of the American's concerns leveraging the recent Presidential Speeches"
-output:
-author: "vc2434"
+output: pdf_document
+author: "Vassily Carantino - vc2434"
 date: "Wednesday, September 20, 2017"
-output: html_document
 ---
 
+```{r setup, include=FALSE}
+chooseCRANmirror(graphics=FALSE, ind=1)
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 ### Introduction: Presidential Speeches are telling us a lot about American people's concerns. 
 
@@ -109,6 +112,8 @@ tdm.tidy= subset(tdm.tidy.all,document %in% speeches)
 
 tdm.trump = subset(tdm.tidy,document == 'inaugDonaldJTrump-1.txt')
 tdm.obama = subset(tdm.tidy,document == "inaugBarackObama-1.txt" | document =="inaugBarackObama-2.txt")
+tdm.obama<-tdm.obama[order(tdm.obama$count,decreasing = TRUE),]
+tdm.obama = tdm.obama[-1,]
 tdm.bush = subset(tdm.tidy,document == "inaugGeorgeWBush-1.txt" | document =="inaugGeorgeWBush-2.txt")
 tdm.clinton = subset(tdm.tidy,document == 'inaugWilliamJClinton-1.txt'| document =="inaugWilliamJClinton-2.txt")
 
@@ -119,7 +124,9 @@ tdm.clinton = subset(tdm.tidy,document == 'inaugWilliamJClinton-1.txt'| document
 
 We first analyse each president verbal style, in order to extract potential verbal tics and repetitive elements of langague.
 
-```{r Comparing recent Presidents style, fig.height=7, fig.width=7, echo = FALSE}
+
+
+```{r Comparing recent Presidents style, fig.height=7, fig.width=7, echo = TRUE,warning=FALSE,message=FALSE,error=FALSE}
 op = par(mfrow=c(2,2), mar = c(0, 0, 3, 0))
 
 wordcloud(tdm.trump$term, tdm.trump$count,
@@ -179,7 +186,7 @@ On these words clouds we can see that every and each president has his own style
 
 tdm.obama<-tdm.obama[order(tdm.obama$count,decreasing = TRUE),]
 tdm.obama = subset(tdm.obama,term %ni% c("requires","complete","compel","today"))
-tdm.obama = tdm.obama[-1,]
+
 
 tdm.bush<-tdm.bush[order(tdm.bush$count,decreasing = TRUE),]
 tdm.bush = subset(tdm.bush,term %ni% c("story","sometimes","seen"))
@@ -206,7 +213,7 @@ tdm.clinton.2 = subset(tdm.clinton,document == 'inaugWilliamJClinton-2.txt')
 
 ## step 5 - Plotting the wordClouds of all speeches in chronological order:
 
-```{r Comparing recent Presidents style, fig.height=7, fig.width=7, echo = FALSE}
+```{r Evolution of Word Clouds, fig.height=7, fig.width=7, echo = TRUE, warning=FALSE,message=FALSE,error=FALSE}
 op = par(mfrow=c(2,4), mar = c(0, 0, 3, 0))
 
 
@@ -323,7 +330,7 @@ names(tdm.tidy.all)[dim(tdm.tidy.all)[2]] = 'strength'
 # Weighting the results
 tdm.tidy.all$sentiment = tdm.tidy.all$count * tdm.tidy.all$sentiment
 tdm.tidy.all$strength = tdm.tidy.all$count * tdm.tidy.all$strength
-tdm.tidy.all
+
 
 # Computing average sentiment and strength of the speech: we obviously need to take into account the speech length.
 tdm.tidy.all = summarise(group_by(tdm.tidy.all, document), sum(count),sum(sentiment),sum(strength))
@@ -331,7 +338,7 @@ tdm.tidy.all$average_sentiment = tdm.tidy.all$`sum(sentiment)`/tdm.tidy.all$`sum
 tdm.tidy.all$average_strength = tdm.tidy.all$`sum(strength)`/tdm.tidy.all$`sum(count)`
 
 # Table: presidential speeches of interest:
-Sentiment_Strength_score_subset <-subset(tdm.tidy.all,document %in%  c('inaugWilliamJClinton-1.txt','inaugWilliamJClinton-2.txt', 'inaugGeorgeWBush-1.txt','inaugGeorgeWBush-2.txt', 'inaugBarackObama-1.txt', 'inaugBarackObama-1.txt','inaugDonaldJTrump-1.txt')                                                                                                                                                                                                                                            
+Sentiment_Strength_score_subset <-subset(tdm.tidy.all,document %in%  c('inaugWilliamJClinton-1.txt','inaugWilliamJClinton-2.txt', 'inaugGeorgeWBush-1.txt','inaugGeorgeWBush-2.txt', 'inaugBarackObama-1.txt', 'inaugBarackObama-1.txt','inaugDonaldJTrump-1.txt'))                                                                                                                                                                                                                                           
 Speech_Score_subset<-Sentiment_Strength_score_subset[,c('document', 'average_sentiment', 'average_strength')]  
 
 plot(Speech_Score_subset$average_sentiment, Speech_Score_subset$average_strength, main= 'Sentiment and Stength Score for recent President Speeches', xlab= 'Sentiment in Speech', ylab= 'Strength of Speech', col= "blue", pch = 19, cex = 1, lty = "solid", lwd = 2)
@@ -353,9 +360,10 @@ We can note here that - according to this simple analysis- Trump style seems to 
 tdm.tidy.all<-tdm.tidy.all[,c('document', 'average_sentiment', 'average_strength')]  
 
 plot(tdm.tidy.all$average_sentiment, tdm.tidy.all$average_strength, main= 'Sentiment and Stength Score for recent President Speeches', xlab= 'Sentiment in Speech', ylab= 'Strength of Speech', col= "blue", pch = 19, cex = 1, lty = "solid", lwd = 2)
-text(tdm.tidy.all$average_sentiment, tdm.tidy.all$average_strength, labels= tdm.tidy.all$document, cex= 0.7, pos=3)
+
 
 points(subset(tdm.tidy.all,document %in%  c('inaugWilliamJClinton-1.txt','inaugWilliamJClinton-2.txt', 'inaugGeorgeWBush-1.txt','inaugGeorgeWBush-2.txt', 'inaugBarackObama-1.txt', 'inaugBarackObama-1.txt','inaugDonaldJTrump-1.txt'))$average_sentiment, subset(tdm.tidy.all,document %in%  c('inaugWilliamJClinton-1.txt','inaugWilliamJClinton-2.txt', 'inaugGeorgeWBush-1.txt','inaugGeorgeWBush-2.txt', 'inaugBarackObama-1.txt', 'inaugBarackObama-1.txt','inaugDonaldJTrump-1.txt'))$average_strength, pch = 16, col = 'red', cex = 2)
+text(subset(tdm.tidy.all,document %in%  c('inaugWilliamJClinton-1.txt','inaugWilliamJClinton-2.txt', 'inaugGeorgeWBush-1.txt','inaugGeorgeWBush-2.txt', 'inaugBarackObama-1.txt', 'inaugBarackObama-1.txt','inaugDonaldJTrump-1.txt'))$average_sentiment,subset(tdm.tidy.all,document %in%  c('inaugWilliamJClinton-1.txt','inaugWilliamJClinton-2.txt', 'inaugGeorgeWBush-1.txt','inaugGeorgeWBush-2.txt', 'inaugBarackObama-1.txt', 'inaugBarackObama-1.txt','inaugDonaldJTrump-1.txt'))$average_strength, labels= subset(tdm.tidy.all,document %in%  c('inaugWilliamJClinton-1.txt','inaugWilliamJClinton-2.txt', 'inaugGeorgeWBush-1.txt','inaugGeorgeWBush-2.txt', 'inaugBarackObama-1.txt', 'inaugBarackObama-1.txt','inaugDonaldJTrump-1.txt'))$document, cex= 0.7, pos=3)
 ```
 We can see that Trump is finally not an outlier, past Presidents have used much more strength and sentiments in their inaugural speeches. This data is very rich and we could conduct a lot of different analysis on it: clustering analysis, correlation with political party and so forth. I unfortunately didn't get the time for all these.
 
